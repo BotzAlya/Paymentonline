@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Touch 'n Go eWallet - Gojo Theme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c2e 0%, #1a1a4a 50%, #2d2d7a 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Header Styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            background: linear-gradient(45deg, #00a8ff, #0097e6);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo-text h1 {
+            font-size: 28px;
+            background: linear-gradient(to right, #00a8ff, #8c7ae6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0, 168, 255, 0.3);
+        }
+        
+        .logo-text p {
+            font-size: 14px;
+            color: #a0a0ff;
+            margin-top: 5px;
+        }
+        
+        .theme-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .theme-badge i {
+            color: #00a8ff;
+        }
+        
+        /* Gojo Theme Elements */
+        .gojo-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .gojo-element {
+            position: absolute;
+            opacity: 0.1;
+        }
+        
+        .element-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #00a8ff 0%, transparent 70%);
+            top: 10%;
+            left: -100px;
+            border-radius: 50%;
+        }
+        
+        .element-2 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #8c7ae6 0%, transparent 70%);
+            bottom: 10%;
+            right: -50px;
+            border-radius: 50%;
+        }
+        
+        .element-3 {
+            width: 150px;
+            height: 150px;
+            border: 2px dashed #00a8ff;
+            top: 40%;
+            right: 10%;
+            border-radius: 50%;
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* QR Section */
+        .qr-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title i {
+            color: #00a8ff;
+            font-size: 20px;
+        }
+        
+        .section-title h2 {
+            font-size: 22px;
+        }
+        
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .qr-image {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 15px;
+            border: 2px solid #00a8ff;
+            border-radius: 10px;
+            padding: 10px;
+            background: white;
+        }
+        
+        .qr-instruction {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .user-info {
+            background: rgba(0, 168, 255, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .user-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #00a8ff;
+        }
+        
+        .user-info p {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        /* Payment Info Section */
+        .payment-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .account-details {
+            margin-bottom: 25px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: #a0a0ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .copy-btn {
+            background: rgba(0, 168, 255, 0.2);
+            border: none;
+            color: #00a8ff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(0, 168, 255, 0.3);
+        }
+        
+        /* Buttons Section */
+        .buttons-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00a8ff, #0097e6);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #0097e6, #00a8ff);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .btn-telegram {
+            background: linear-gradient(45deg, #0088cc, #00a8ff);
+            color: white;
+        }
+        
+        .btn-telegram:hover {
+            background: linear-gradient(45deg, #00a8ff, #0088cc);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a0ff;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: #00a8ff;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .developer {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 168, 255, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Gojo Theme Background Elements -->
+    <div class="gojo-elements">
+        <div class="gojo-element element-1"></div>
+        <div class="gojo-element element-2"></div>
+        <div class="gojo-element element-3"></div>
+    </div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">TNG</div>
+                <div class="logo-text">
+                    <h1>Touch 'n Go eWallet</h1>
+                    <p>Anime Gojo Theme Payment</p>
+                </div>
+            </div>
+            <div class="theme-badge">
+                <i class="fas fa-magic"></i>
+                <span>Gojo Satoru Theme</span>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <!-- QR Code Section -->
+            <section class="qr-section">
+                <div class="section-title">
+                    <i class="fas fa-qrcode"></i>
+                    <h2>Scan QR Code</h2>
+                </div>
+                
+                <div class="qr-container">
+                    <!-- QR Code Image -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=tngo://payment/181243789994&bgcolor=ffffff&color=000000&format=svg" alt="Touch 'n Go QR Code" class="qr-image" id="qrImage">
+                    
+                    <p class="qr-instruction">
+                        Imbas dengan aplikasi perbankan atau<br>
+                        eWallet anda untuk pindahan atau bayaran.
+                    </p>
+                </div>
+                
+                <div class="user-info">
+                    <h3>Account Holder</h3>
+                    <p>MUHAMMAD AZIM BIN MOHD KHAIRUL RIZAL</p>
+                </div>
+                
+                <div class="buttons-section">
+                    <button class="btn btn-primary" id="downloadQR">
+                        <i class="fas fa-download"></i> Download QR
+                    </button>
+                    <button class="btn btn-secondary" id="shareQR">
+                        <i class="fas fa-share-alt"></i> Share QR
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Payment Information Section -->
+            <section class="payment-info">
+                <div class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    <h2>Payment Information</h2>
+                </div>
+                
+                <div class="account-details">
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-wallet"></i>
+                            <span>Payment Method</span>
+                        </div>
+                        <div class="detail-value">Touch 'n Go eWallet</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-hashtag"></i>
+                            <span>Touch 'n Go Number</span>
+                        </div>
+                        <div class="detail-value">
+                            181243789994
+                            <button class="copy-btn" id="copyAccount">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-qrcode"></i>
+                            <span>QR Type</span>
+                        </div>
+                        <div class="detail-value">MALAYSIA NATIONAL QR</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-user"></i>
+                            <span>Account Status</span>
+                        </div>
+                        <div class="detail-value">
+                            <span style="color: #00ff88;">Active</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="buttons-section">
+                    <button class="btn btn-primary" id="simulatePayment">
+                        <i class="fas fa-money-check-alt"></i> Simulate Payment
+                    </button>
+                    <button class="btn btn-telegram" id="contactTelegram">
+                        <i class="fab fa-telegram"></i> Contact on Telegram
+                    </button>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Touch 'n Go eWallet - Malaysia National QR Payment System</p>
+            <p>This is a demo payment page with Anime Gojo Satoru theme</p>
+            <p class="developer">Developer: <a href="https://t.me/ajimpro" target="_blank">@boyjutawan</a></p>
+        </footer>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Copied to clipboard!</span>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const copyAccountBtn = document.getElementById('copyAccount');
+        const downloadQRBtn = document.getElementById('downloadQR');
+        const shareQRBtn = document.getElementById('shareQR');
+        const simulatePaymentBtn = document.getElementById('simulatePayment');
+        const contactTelegramBtn = document.getElementById('contactTelegram');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const qrImage = document.getElementById('qrImage');
+        
+        // Copy Account Number Function
+        copyAccountBtn.addEventListener('click', function() {
+            const accountNumber = '181243789994';
+            navigator.clipboard.writeText(accountNumber).then(() => {
+                showNotification('Touch \'n Go number copied to clipboard!');
+            });
+        });
+        
+        // Download QR Code Function
+        downloadQRBtn.addEventListener('click', function() {
+            // In a real implementation, this would trigger a download
+            showNotification('QR Code download started!');
+            
+            // Simulate download process
+            setTimeout(() => {
+                showNotification('QR Code downloaded successfully!');
+            }, 1500);
+        });
+        
+        // Share QR Code Function
+        shareQRBtn.addEventListener('click', function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Touch \'n Go eWallet QR Code',
+                    text: 'Scan this QR code to make a payment to Muhammad Azim Bin Mohd Khairul Rizal',
+                    url: window.location.href
+                })
+                .then(() => showNotification('QR Code shared successfully!'))
+                .catch(error => console.log('Error sharing:', error));
+            } else {
+                showNotification('Web Share API not supported in your browser');
+            }
+        });
+        
+        // Simulate Payment Function
+        simulatePaymentBtn.addEventListener('click', function() {
+            showNotification('Simulating payment process...');
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                showNotification('Payment simulation completed successfully!');
+            }, 2000);
+        });
+        
+        // Contact Telegram Function
+        contactTelegramBtn.addEventListener('click', function() {
+            window.open('https://t.me/ajimpro', '_blank');
+            showNotification('Opening Telegram contact...');
+        });
+        
+        // Notification Function
+        function showNotification(message) {
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Add Gojo-themed interaction to QR code
+        qrImage.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+            this.style.boxShadow = '0 0 20px rgba(0, 168, 255, 0.7)';
+            this.style.transition = 'all 0.3s ease';
+        });
+        
+        qrImage.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = 'none';
+        });
+        
+        // Add some Gojo-themed animation to buttons
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Initialize with a welcome message
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showNotification('Welcome to Touch \'n Go eWallet with Gojo Theme!');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
